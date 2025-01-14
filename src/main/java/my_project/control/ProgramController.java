@@ -4,7 +4,9 @@ import KAGO_framework.control.ViewController;
 import my_project.Config;
 import my_project.model.Apple;
 import my_project.model.Pear;
+import my_project.model.Pflaume;
 import my_project.model.Player;
+import KAGO_framework.model.*;
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -20,6 +22,7 @@ public class ProgramController {
 
     private Apple apple01;
     private Pear pear01;
+    private Pflaume plum01;
     private Player player01;
 
     /**
@@ -48,6 +51,11 @@ public class ProgramController {
         pear01 = new Pear(xPos, yPos);
         viewController.draw(pear01);
 
+        xPos = Math.random()*(Config.WINDOW_WIDTH-80) + 50;
+        yPos = Math.random()*(Config.WINDOW_HEIGHT-80) + 50;
+        plum01 = new Pflaume(xPos, yPos);
+        viewController.draw(plum01);
+
         player01 = new Player(50, Config.WINDOW_HEIGHT-100);
         viewController.draw(player01);
         viewController.register(player01);
@@ -60,22 +68,18 @@ public class ProgramController {
         if (checkAndHandleCollision(pear01)){
             pear01.jumpBack();
         }
+        if (checkAndHandleCollision(plum01)){
+            plum01.jumpBack();
+        }
         //Weitere TODOs folgen und werden im Unterricht formuliert. Spätestens nach TODO 08 sollte der Aufbau des Projekts durchdacht werden.
     }
 
-    public boolean checkAndHandleCollision(Apple a){
-        if (player01.collidesWith(a)){
+    public boolean checkAndHandleCollision(GraphicalObject gO){
+        if (gO.collidesWith(player01)){
             return true;
         }else{
             return false;
         }
     }
 
-    public boolean checkAndHandleCollision(Pear p){
-        if (player01.collidesWith(p)){
-            return true;
-        }else{
-            return false;
-        }
-    }
 }

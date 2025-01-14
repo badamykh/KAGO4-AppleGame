@@ -32,7 +32,6 @@ public class Player extends InteractiveGraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-        System.out.println("Player position: (" + x + ", " + y + ")");
         drawTool.setCurrentColor(157,152,3,255);
         drawTool.drawFilledRectangle(x,y,width,height);
         drawTool.setCurrentColor(0,0,0,255);
@@ -43,16 +42,16 @@ public class Player extends InteractiveGraphicalObject {
     public void update(double dt) {
         if(direction == 0){
             x = x + speed*dt;
-            if (x>=Config.WINDOW_WIDTH-width){
+            if (x>Config.WINDOW_WIDTH-width-18){
                 direction = -1;
-                x = Config.WINDOW_WIDTH-width-1;
+                x = Config.WINDOW_WIDTH-width-18;
             }
         }
         if(direction == 2){
             x = x - speed*dt;
-            if (x<=0){
+            if (x<0){
                 direction = -1;
-                x = 1;
+                x = 0;
             }
         }
     }
