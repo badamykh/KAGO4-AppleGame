@@ -1,13 +1,9 @@
 package my_project.model;
 
-import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 
-public class Pear extends GraphicalObject {
-
-    //Attribute
-    private double speed;
+public class Pear extends Fruit {
 
     public Pear(double x, double y){
         this.x = x;
@@ -26,13 +22,6 @@ public class Pear extends GraphicalObject {
     }
 
     @Override
-    public void update(double dt) {
-        y = y + speed*dt;
-        if (y>=Config.WINDOW_HEIGHT - height){
-            jumpBack();
-        }
-    }
-
     public void jumpBack(){
         y = -height;
         x = Math.random()*(Config.WINDOW_WIDTH-75) + 50;

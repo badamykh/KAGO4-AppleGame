@@ -4,9 +4,10 @@ import KAGO_framework.control.ViewController;
 import my_project.Config;
 import my_project.model.Apple;
 import my_project.model.Pear;
-import my_project.model.Pflaume;
+import my_project.model.Plum;
 import my_project.model.Player;
 import KAGO_framework.model.*;
+
 
 /**
  * Ein Objekt der Klasse ProgramController dient dazu das Programm zu steuern. Die updateProgram - Methode wird
@@ -22,7 +23,7 @@ public class ProgramController {
 
     private Apple apple01;
     private Pear pear01;
-    private Pflaume plum01;
+    private Plum plum01;
     private Player player01;
 
     /**
@@ -53,7 +54,7 @@ public class ProgramController {
 
         xPos = Math.random()*(Config.WINDOW_WIDTH-80) + 50;
         yPos = Math.random()*(Config.WINDOW_HEIGHT-80) + 50;
-        plum01 = new Pflaume(xPos, yPos);
+        plum01 = new Plum(xPos, yPos);
         viewController.draw(plum01);
 
         player01 = new Player(50, Config.WINDOW_HEIGHT-100);

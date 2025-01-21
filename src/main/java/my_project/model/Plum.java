@@ -1,15 +1,11 @@
 package my_project.model;
 
-import KAGO_framework.model.GraphicalObject;
 import KAGO_framework.view.DrawTool;
 import my_project.Config;
 
-public class Pflaume extends GraphicalObject {
+public class Plum extends Fruit {
 
-    //Attribute
-    private double speed;
-
-    public Pflaume(double x, double y){
+    public Plum(double x, double y){
         this.x = x;
         this.y = y;
         speed = 150;
@@ -25,13 +21,6 @@ public class Pflaume extends GraphicalObject {
     }
 
     @Override
-    public void update(double dt) {
-        y = y + speed*dt;
-        if (y>=Config.WINDOW_HEIGHT - radius){
-            jumpBack();
-        }
-    }
-
     public void jumpBack(){
         y = -radius;
         x = Math.random()*(Config.WINDOW_WIDTH-80) + 50;
