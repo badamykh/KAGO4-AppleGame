@@ -10,7 +10,7 @@ public class Player extends InteractiveGraphicalObject {
 
 
     //Attribute
-    private double speed;
+    public double speed;
     private int points;
 
     //Tastennummern zur Steuerung

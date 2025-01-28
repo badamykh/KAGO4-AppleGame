@@ -15,7 +15,7 @@ public class Pear extends Fruit {
 
     @Override
     public void draw(DrawTool drawTool) {
-        drawTool.setCurrentColor(0,255,0,255);
+        drawTool.setCurrentColor(255,191,0,255);
         drawTool.drawFilledRectangle(x,y,width,height);
         drawTool.setCurrentColor(0,0,0,255);
         drawTool.drawRectangle(x,y,width,height);
@@ -25,6 +25,11 @@ public class Pear extends Fruit {
     public void jumpBack(){
         y = -height;
         x = Math.random()*(Config.WINDOW_WIDTH-75) + 50;
+    }
+
+    public void update(double dt){
+        super.update(dt);
+        x = Math.sin(0.01*y)*500 + 500;
     }
 }
 
