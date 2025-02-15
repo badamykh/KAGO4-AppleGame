@@ -11,22 +11,34 @@ public class Player extends InteractiveGraphicalObject {
 
     //Attribute
     public double speed;
-    private int points;
 
     //Tastennummern zur Steuerung
     private int keyToGoLeft;
     private int keyToGoRight;
     private int direction;
 
-    public Player(double x, double y){
+    public int score;
+    private double min;
+    private double max;
+
+    public Player(double x, double y, double minima, double maxima, int iden){
         this.x = x;
         this.y = y;
         speed = 150;
         width = 80;
         height = 40;
+        score = 0;
+        min = minima;
+        max = maxima;
 
-        this.keyToGoLeft    = KeyEvent.VK_A;
-        this.keyToGoRight   = KeyEvent.VK_D;
+        if (iden==1){
+            this.keyToGoLeft    = KeyEvent.VK_A;
+            this.keyToGoRight   = KeyEvent.VK_D;
+        }
+        if (iden==2){
+            this.keyToGoLeft    = KeyEvent.VK_J;
+            this.keyToGoRight   = KeyEvent.VK_L;
+        }
         this.direction      = -1; //-1 keine Bewegung, 0 nach rechts, 2 nach links
     }
 
@@ -42,16 +54,16 @@ public class Player extends InteractiveGraphicalObject {
     public void update(double dt) {
         if(direction == 0){
             x = x + speed*dt;
-            if (x>Config.WINDOW_WIDTH-width-18){
+            if (x>max){
                 direction = -1;
-                x = Config.WINDOW_WIDTH-width-18;
+                x = max;
             }
         }
         if(direction == 2){
             x = x - speed*dt;
-            if (x<0){
+            if (x<min){
                 direction = -1;
-                x = 0;
+                x = min;
             }
         }
     }

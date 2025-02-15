@@ -4,13 +4,17 @@ import KAGO_framework.view.DrawTool;
 import my_project.Config;
 
 public class Pear extends Fruit {
-
-    public Pear(double x, double y){
-        this.x = x;
+    private double a;
+    private double b;
+    private double c;
+    public Pear(double xpos, double y, double a, double b){
+        c = xpos;
         this.y = y;
         speed = 150;
         width = 25;
         height = 35;
+        this.a = a;
+        this.b = b;
     }
 
     @Override
@@ -24,12 +28,14 @@ public class Pear extends Fruit {
     @Override
     public void jumpBack(){
         y = -height;
-        x = Math.random()*(Config.WINDOW_WIDTH-75) + 50;
+        c = Math.random()*(Config.WINDOW_HEIGHT-75) + 50;
+        a = Math.random()*0.01;
+        b = Math.random()*500;
     }
 
     public void update(double dt){
         super.update(dt);
-        x = Math.sin(0.01*y)*500 + 500;
+        x = Math.sin(a*y)*b + c;
     }
 }
 

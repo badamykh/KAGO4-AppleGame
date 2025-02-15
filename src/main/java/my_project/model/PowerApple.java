@@ -8,8 +8,8 @@ public class PowerApple extends Apple {
 
     public double speedBuff = Math.random() + 1;
 
-    public PowerApple(double xPos, double yPos){
-        super(xPos,yPos);
+    public PowerApple(double x, double y){
+        super(x,y);
         radius = 15;
     }
 
