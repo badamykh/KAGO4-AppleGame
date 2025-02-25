@@ -43,6 +43,9 @@ public class ProgramController {
     public boolean pearCaught1;
     public boolean pearCaught2;
 
+    public int stand = 1;
+    private double time = 0;
+
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -126,9 +129,30 @@ public class ProgramController {
         yPos = Math.random()*(Config.WINDOW_HEIGHT-80) + 50;
         plum01 = new Plum(xPos, yPos);
         viewController.draw(plum01);
+
+
     }
 
     public void updateProgram(double dt){
+        time = time + dt;
+        if (time<30){
+            stand = 1;
+        } else {
+            stand = 2;
+            apple01.speed = 0;
+            apple02.speed = 0;
+            apple03.speed = 0;
+            pear01.speed = 0;
+            pear02.speed = 0;
+            pear03.speed = 0;
+            powa01.speed = 0;
+            powp01.speed = 0;
+            plum01.speed = 0;
+            player01.speed = 0;
+            player02.speed = 0;
+
+        }
+
         if (checkAndHandleCollision(apple01)){
             apple01.jumpBack();
         }

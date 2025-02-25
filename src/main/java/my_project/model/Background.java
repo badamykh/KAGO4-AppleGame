@@ -41,15 +41,24 @@ public class Background extends GraphicalObject {
         drawTool.setCurrentColor(0, 0, 0, 255);
         drawTool.formatText("Arial", 1, 25);
         //drawTool.drawText(450,50,chosenPhrase);
-        drawTool.drawText(30, 100, "Spielstand:" + pl01.score);
-        drawTool.drawText(800, 100, "Spielstand:" + pl02.score);
-
-
-        if (program.pearCaught1) {
+        if (program.stand==1){
+            drawTool.drawText(30, 100, "Spielstand:" + pl01.score);
+            drawTool.drawText(800, 100, "Spielstand:" + pl02.score);
+            if (program.pearCaught1) {
                 drawTool.drawText(50, 50, "In der Not frisst der Teufel Birnen");
-        }
-        if (program.pearCaught2) {
+            }
+            if (program.pearCaught2) {
                 drawTool.drawText(560, 50, "In der Not frisst der Teufel Birnen");
+            }
+
+        } else if (program.stand==2){
+            if (pl01.score>pl02.score){
+                drawTool.drawText(350, 300, "Spieler 1 hat gewonnen!");
+            } else if (pl01.score<pl02.score){
+                drawTool.drawText(350, 300, "Spieler 2 hat gewonnen!");
+            } else {
+                drawTool.drawText(300, 300, "Die Freundschaft hat gewonnen!");
+            }
         }
 
 
