@@ -15,6 +15,8 @@ public class Player extends InteractiveGraphicalObject {
     //Tastennummern zur Steuerung
     private int keyToGoLeft;
     private int keyToGoRight;
+    private int keyToGoUp;
+    private int keyToGoDown;
     private int direction;
 
     public int score;
@@ -34,10 +36,14 @@ public class Player extends InteractiveGraphicalObject {
         if (iden==1){
             this.keyToGoLeft    = KeyEvent.VK_A;
             this.keyToGoRight   = KeyEvent.VK_D;
+            this.keyToGoUp    = KeyEvent.VK_W;
+            this.keyToGoDown  = KeyEvent.VK_S;
         }
         if (iden==2){
             this.keyToGoLeft    = KeyEvent.VK_J;
             this.keyToGoRight   = KeyEvent.VK_L;
+            this.keyToGoUp    = KeyEvent.VK_I;
+            this.keyToGoDown  = KeyEvent.VK_K;
         }
         this.direction      = -1; //-1 keine Bewegung, 0 nach rechts, 2 nach links
     }
@@ -66,6 +72,20 @@ public class Player extends InteractiveGraphicalObject {
                 x = min;
             }
         }
+        if(direction == 1){
+            y = y - speed*dt;
+            if (y<Config.WINDOW_HEIGHT-320){
+                direction = -1;
+                y = Config.WINDOW_HEIGHT-320;
+            }
+        }
+        if(direction == 3){
+            y = y + speed*dt;
+            if (y>Config.WINDOW_HEIGHT){
+                direction = -1;
+                y = Config.WINDOW_HEIGHT;
+            }
+        }
     }
 
     @Override
@@ -76,6 +96,12 @@ public class Player extends InteractiveGraphicalObject {
         if(key == keyToGoRight){
             direction = 0;
         }
+        if(key == keyToGoUp){
+            direction = 1;
+        }
+        if(key == keyToGoDown){
+            direction = 3;
+        }
     }
 
     @Override
@@ -84,6 +110,12 @@ public class Player extends InteractiveGraphicalObject {
             direction = -1;
         }
         if(key == keyToGoRight){
+            direction = -1;
+        }
+        if(key == keyToGoUp){
+            direction = -1;
+        }
+        if(key == keyToGoDown){
             direction = -1;
         }
     }
