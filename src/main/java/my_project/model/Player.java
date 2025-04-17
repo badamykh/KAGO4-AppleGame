@@ -8,15 +8,19 @@ import java.awt.event.KeyEvent;
 
 public class Player extends InteractiveGraphicalObject {
 
+    private ScoreNerf sN;
 
     //Attribute
     public double speed;
+
+    public boolean readyForShot = false;
 
     //Tastennummern zur Steuerung
     private int keyToGoLeft;
     private int keyToGoRight;
     private int keyToGoUp;
     private int keyToGoDown;
+    private int keyToShoot;
     private int direction;
 
     public int score;
@@ -38,12 +42,14 @@ public class Player extends InteractiveGraphicalObject {
             this.keyToGoRight   = KeyEvent.VK_D;
             this.keyToGoUp    = KeyEvent.VK_W;
             this.keyToGoDown  = KeyEvent.VK_S;
+            this.keyToShoot = KeyEvent.VK_1;
         }
         if (iden==2){
             this.keyToGoLeft    = KeyEvent.VK_J;
             this.keyToGoRight   = KeyEvent.VK_L;
             this.keyToGoUp    = KeyEvent.VK_I;
             this.keyToGoDown  = KeyEvent.VK_K;
+            this.keyToShoot = KeyEvent.VK_0;
         }
         this.direction      = -1; //-1 keine Bewegung, 0 nach rechts, 2 nach links
     }
@@ -74,16 +80,16 @@ public class Player extends InteractiveGraphicalObject {
         }
         if(direction == 1){
             y = y - speed*dt;
-            if (y<Config.WINDOW_HEIGHT-320){
+            if (y<Config.WINDOW_HEIGHT-520){
                 direction = -1;
-                y = Config.WINDOW_HEIGHT-320;
+                y = Config.WINDOW_HEIGHT-520;
             }
         }
         if(direction == 3){
             y = y + speed*dt;
-            if (y>Config.WINDOW_HEIGHT){
+            if (y>Config.WINDOW_HEIGHT-280){
                 direction = -1;
-                y = Config.WINDOW_HEIGHT;
+                y = Config.WINDOW_HEIGHT-280;
             }
         }
     }
@@ -102,6 +108,12 @@ public class Player extends InteractiveGraphicalObject {
         if(key == keyToGoDown){
             direction = 3;
         }
+        if(readyForShot && key == keyToShoot){
+            if (sN != null) {
+                sN.detach();
+            }
+            readyForShot = false;
+        }
     }
 
     @Override
@@ -118,5 +130,9 @@ public class Player extends InteractiveGraphicalObject {
         if(key == keyToGoDown){
             direction = -1;
         }
+    }
+
+    public void setScoreNerf(ScoreNerf sN) {
+        this.sN = sN;
     }
 }

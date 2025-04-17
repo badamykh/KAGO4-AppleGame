@@ -33,10 +33,16 @@ public class ProgramController {
     private PowerPear powp01;
 
     private Plum plum01;
+
+    private Watermelon watmelon01;
+
     private Player player01;
     private boolean collided1;
     private Player player02;
     private boolean collided2;
+
+    private ScoreNerf scoreNerf01;
+    private ScoreNerf scoreNerf02;
 
     private int number;
 
@@ -131,6 +137,11 @@ public class ProgramController {
         viewController.draw(plum01);
 
 
+        xPos = Math.random()*(Config.WINDOW_WIDTH-80) + 70;
+        yPos = Math.random()*(Config.WINDOW_HEIGHT-80) + 70;
+        watmelon01 = new Watermelon(xPos, yPos);
+        viewController.draw(watmelon01);
+
     }
 
     public void updateProgram(double dt){
@@ -148,8 +159,15 @@ public class ProgramController {
             powa01.speed = 0;
             powp01.speed = 0;
             plum01.speed = 0;
+            watmelon01.speed = 0;
             player01.speed = 0;
             player02.speed = 0;
+            if(scoreNerf01 != null){
+                scoreNerf01.speed = 0;
+            }
+            if(scoreNerf02 != null){
+                scoreNerf02.speed = 0;
+            }
 
         }
 
@@ -218,7 +236,49 @@ public class ProgramController {
         if (checkAndHandleCollision(plum01)){
             plum01.jumpBack();
         }
-        //Weitere TODOs folgen und werden im Unterricht formuliert. Spätestens nach TODO 08 sollte der Aufbau des Projekts durchdacht werden.
+
+        if (checkAndHandleCollision(watmelon01)){
+            watmelon01.jumpBack();
+            if (number == 1){
+                if(scoreNerf01 != null){
+                    scoreNerf01.setRadius(0);
+                }
+                player01.readyForShot = true;
+                scoreNerf01 = new ScoreNerf(player01.getX(), player01.getY(), number);
+                scoreNerf01.setPlayer(player01);
+                viewController.draw(scoreNerf01);
+                viewController.register(scoreNerf01);
+                player01.setScoreNerf(scoreNerf01);
+            }
+            if (number == 2){
+                if(scoreNerf02 != null){
+                    scoreNerf02.setRadius(0);
+                }
+                player02.readyForShot = true;
+                scoreNerf02 = new ScoreNerf(player02.getX(), player02.getY(), number);
+                scoreNerf02.setPlayer(player02);
+                viewController.draw(scoreNerf02);
+                viewController.register(scoreNerf02);
+                player02.setScoreNerf(scoreNerf02);
+            }
+        }
+
+        if (scoreNerf01 != null && checkAndHandleCollision(scoreNerf01)){
+            if (number == 2){
+                player02.score -= 11;
+                scoreNerf01.setX(-100);
+                scoreNerf01.speed = 0;
+            }
+        }
+
+        if (scoreNerf02 != null && checkAndHandleCollision(scoreNerf02)){
+            if (number == 1){
+                player01.score -= 11;
+                scoreNerf02.setX(-100);
+                scoreNerf02.speed = 0;
+            }
+        }
+
     }
 
     public boolean checkAndHandleCollision(GraphicalObject gO){
@@ -226,7 +286,9 @@ public class ProgramController {
         collided2 = false;
         if (gO.collidesWith(player01)) {
             number = 1;
-            player01.score += 1;
+            if (gO != scoreNerf01){
+                player01.score += 1;
+            }
             collided1 = true;
             if (gO != pear01 && gO != pear02 && gO != pear03 && gO != powp01){
                 pearCaught1 = false;
@@ -235,7 +297,9 @@ public class ProgramController {
 
         if (gO.collidesWith(player02)){
             number = 2;
-            player02.score += 1;
+            if (gO != scoreNerf02){
+                player02.score += 1;
+            }
             collided2 = true;
             if (gO != pear01 && gO != pear02 && gO != pear03 && gO != powp01){
                 pearCaught2 = false;
